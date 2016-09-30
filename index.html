@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Guessing Game</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <style>
+        header, div {
+            max-width: 500px;
+            padding-left: 1em;
+        }
+
+        div {
+            border: 1px solid darkblue;
+        }
+
+        #guessInput {
+            display: block;
+            margin: auto;
+            font-size: x-large;
+            text-align: center;
+        }
+
+        #guessButton {
+            display: block;
+            margin: auto;
+        }
+
+        #responseDiv p {
+            display: block;
+            width: 80%;
+            font-size: large;
+            margin: auto;
+        }
+        #maxSpan {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        /* Constants: */
+        var MAX_NUMBER = 10;
+        var MAX_TRIES = 4;          // It should not take more that this many tries to guess.
+
+        /* Global variable to hold the right answer. */
+        /* Note: instructions say to set this to null, but I think undefined makes more sense. */
+        var rightAnswer = undefined;
+        var guessCount = 0;
+        var alreadySolved = false;
+
+        /* Startup code for document ready. */
+        $(document).ready(function(){
+            /* Fill in the instructions with the proper maximum. */
+            $('#maxSpan').text(MAX_NUMBER.toString());
+
+            /* Pick a number between 1 and MAX_NUMBER. */
+            rightAnswer = pickRandomNumber(MAX_NUMBER);
+            console.log('Don\'t peek, but the right answer is', rightAnswer);
+
+            /* Set up the button handler. */
+            $('#guessButton').click(onGuessButton);
+        });
+
+        function onGuessButton() {
+            console.log('Submit button pressed.');
+            processGuess();
+        }
+
+        /* Pick a number between 1 and n, inclusive. */
+        function pickRandomNumber(max) {
+            return Math.floor(Math.random() * max) + 1;
+        }
+
+        /* Process the guess and display the results. */
+        function processGuess() {
+            var guess = $('#guessInput').val();
+            var result;
+            console.log('Processing guess', guess, 'against right answer', rightAnswer);
+            guessCount++;
+
+            if (alreadySolved) {
+                result = '<strong>Whoa!</strong> You have already guessed the number right. You can stop now, or refresh the page to play again.';
+            }
+            else if (guess === '') {
+                result = 'No, you have to type your guess into the box and <em>then</em> hit Submit.';
+            }
+            else if (isNaN(guess)) {
+                result = 'No, no, you have to guess a <em>number</em>.';
+            }
+            else if (guess < 1 || guess > MAX_NUMBER) {
+                result = 'No, no, you have to guess a number between 1 and ' + MAX_NUMBER + ', inclusive.';
+            }
+            else if (guess < rightAnswer) {
+                result = 'Too low, guess again.';
+            }
+            else if (guess > rightAnswer) {
+                result = 'Too high, guess again.';
+            }
+            else {
+                result = '<strong>You guessed it!</strong>';
+                alreadySolved = true;
+
+                if (guessCount == 1) {
+                    result += ' And on the first try! <em>Did you peek?</em>';
+                }
+                else if (guessCount < MAX_TRIES) {
+                    result += ' And you did it with a minimal number of guesses. Good work!';
+                }
+                else if (guessCount === MAX_TRIES) {
+                    result += ' And you did it in the expected number of tries.';
+                }
+                else {
+                    result += ' You took a few too many tries, though. You might want to hone those guessing skills.';
+                }
+
+            }
+
+            $('#responseParagraph').html(result);
+        }
+    </script>
+</head>
+<body>
+<header>
+    <h1>Welcome to the Guessing Game!</h1>
+    <p>The rules are simple: I have picked a number between 1 and <span id='maxSpan'></span>, inclusive, and you need
+        to guess what it is. Place your guess in the space below, and click the 'Submit' button, and the results
+        will appear in the box below that.</p>
+    <p>It's that simple!</p>
+    <p>If you want to play again, just refresh the page (you know, like with &lt;F5&gt;.</p>
+</header>
+<div id='guessDiv'>
+    <h2>Your guess:</h2>
+    <input type='text' id='guessInput'>
+    <br>
+    <button type='button' id='guessButton'>Submit</button>
+    <br>
+</div>
+<div id='responseDiv'>
+    <h2>Your results:</h2>
+    <p id='responseParagraph'>Waiting for the first guess...</p>
+    <br>
+</div>
+</body>
+</html>
