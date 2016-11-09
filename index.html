@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Guessing Game</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        var the_number = null;
+        function pick_number() {
+            var random_number = Math.ceil(Math.random() * 10);
+            return random_number;
+        }
+        function onLoad() {
+            the_number = pick_number();
+            $("#submit_button").click(make_guess);
+        }
+        function make_guess() {
+           var the_guess = $("#guess_input").val()
+            if (the_guess > the_number) {
+               $("#response_div").html("Too High!")
+            }
+            else if(the_guess < the_number) {
+                $("#response_div").html("Too Low!")
+            }
+            else if(the_guess == the_number) {
+                $("#response_div").html("You Guessed it!")
+            }
+        }
+    </script>
+</head>
+<body onload="onLoad();">
+    <form onsubmit=" return false">
+        <input id="guess_input" type="text" name="players_guess" placeholder="Enter number between 1 - 10">
+        <button id="submit_button">Submit</button>
+    </form>
+    <div id="response_div"></div>
+</body>
+</html>
