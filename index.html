@@ -1,0 +1,103 @@
+<!-- Guessing Game Project      Vernon Louie    C11.16      November 16, 2016 -->
+
+<!doctype html>
+<html>
+
+    <head>
+        <title> card guessing game </title>
+        <style>
+            #btn1 {
+                height:             50px;
+                width:              250px;
+                background-color:   lightgray;
+                border-radius:      10px;
+                color:              darkmagenta;
+                font-family:        Verdana;
+                text-align:         center;
+                padding:            5px;
+            }
+
+            #response_div {
+                height:             30px;
+                width:              200px;
+                background-color:   lightyellow;
+                border-radius:      20px;
+                color:              darkblue;
+                font-family:        Verdana;
+                text-align:         center;
+                padding:            5px;
+            }
+        </style>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script>
+            $(document).ready(initialize_game);
+
+//            $(document).ready(
+//                    function(){
+//                        $("#btn1").click(make_guess);
+//                    }
+//            );
+
+            function initialize_game(){
+                $("#btn1").click(make_guess)
+            }
+
+            var random_num;
+
+            function pick_number() {
+                var random_number;
+                var intermediate_number;
+
+                intermediate_number = Math.random();
+                random_number = parseInt((intermediate_number * 10)) + 1;
+
+                console.log("Inside function pick_number.  The random number is " + random_number);
+                return random_number;
+            }
+
+            function make_guess() {
+//                var h = $('#guess_a');
+//                console.log("I am here!!! ", h);
+
+
+                var the_guess = $("#guess_a").val();
+//                var the_number = null;
+                var the_number = random_num;
+//                var contents;
+
+
+                console.log(the_guess, " and ", the_number);
+
+                if (the_guess > the_number) {
+                    contents = "Too High!";
+                }
+                else if (the_guess < the_number) {
+                    contents = "Too Low!";
+                }
+                else {
+                    contents = "You guessed it!";
+                }
+
+                $("#response_div").text(contents)
+            }
+
+        </script>
+    </head>
+
+    <body onload = "random_num = pick_number()">
+        <form>
+            Guess a number:
+            <input id="guess_a" type="number" name="guess_input">
+        </form>
+
+        <br>
+        <button type="button" id="btn1">
+            Press to compare against random number between 1 and 10
+        </button>
+
+        <br>
+        <div id = "response_div"> </div>
+
+    </body>
+</html>
