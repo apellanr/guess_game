@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guessing Game</title>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+        var the_number=null;
+
+        function pickNumber() {
+            var random_number=Math.floor(Math.random() * 10) + 1;
+            return random_number;
+        }
+
+        function makeGuess() {
+            //var the_guess=$('#guess_input').value;
+            //TODO: Why didn't that jQuery work?
+            var the_guess = document.getElementById('guess_input').value;
+            console.log('Guess '+the_guess + 'number '+the_number);
+            if (the_guess>the_number) {
+                $('#response_div').html('Too high!');
+            } else if (the_guess<the_number) {
+                $('#response_div').html('Too low!');
+            } else if (the_guess==the_number) {
+                $('#response_div').html('You guessed it!');
+            }
+        }
+        //TODO: Why does this need to be in a document ready? It doesn't happen until there's a click
+        $(document).ready(function() {
+            $("#make_it_so").click(function(){
+                makeGuess();
+            });
+        });
+    </script>
+</head>
+<body onload="the_number=pickNumber()">
+<input id="guess_input" type="text">
+<div id="response_div"></div>
+<button id="make_it_so" type="submit">Choose a number 1-10</button>
+</body>
+</html>
