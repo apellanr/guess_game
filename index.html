@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guessing Game</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script>
+
+        var the_number = null;
+
+        $(document).ready(function () {
+            $("button").click(function () {
+                console.log('Button clicked');
+                make_guess();
+            });
+            pick_number();
+        });
+
+        function make_guess() {
+            var the_guess = $('#guess_input').val();
+            //var the_guess = document.getElementById('guess_input').value;
+
+            console.log('the_guess is : ', the_guess);
+            if (the_guess < 1 || the_guess > 10 || the_guess == '') {
+                $('#response_div').html('You must pick a number, 1 - 10');
+            } else {
+                if (the_guess == the_number) {
+                    $('#response_div').html('You Guessed Right!');
+                }
+                else if (the_guess > the_number) {
+                    $('#response_div').html('Too High!');
+                }
+                else {
+                    console.log('the_guess is : ', the_guess);
+                    $('#response_div').html('Too Low!');
+                }
+            }
+        }
+
+        function pick_number() {
+            the_number = Math.floor(Math.random() * 10) + 1;
+            console.log('this is my random number: ' + the_number);
+        }
+
+    </script>
+</head>
+<body>
+<input id="guess_input" type="text" value="" placeholder="Guess a number 1 - 10">
+<div id="response_div">
+
+</div>
+<button id="button">Take a Guess</button>
+<!--<button>Reset</button>-->
+</body>
+</html>
