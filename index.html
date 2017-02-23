@@ -2,7 +2,9 @@
 <html>
 <head>
     <title>Guess The Number</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <script>
         var the_number = null;
 
@@ -11,26 +13,31 @@
             return random_number;
         }
 
+
         $(document).ready(function(){ //click handler
-           $("button").click(function() { //click() method attaches a fxn to run when a click event occurs
-               return make_guess;
+            $("button").click(function(){ //click() method attaches a fxn to run when a click event occurs
+                return make_guess();
+            });
         });
 
         function make_guess(){ //declared function
-            var the_guess = $("#guess_input").val(); //val() will get value from user input field
+            var the_guess = parseInt($("#guess_input").val(), 5); //val() will get value from user input field
             if (the_guess > the_number){
-                $("responsive_div").text("Too High!");
+                $("#response_div").text("Too High!");
             } else if (the_guess < the_number){
-                $("responsive_div").text("Too Low!");
+                $("#response_div").text("Too Low!");
             } else {
-            }   $("responsive_div").text("You guessed it!");
+            }   $("#response_div").text("You guessed it!");
         }
-
     </script>
 </head>
-<body onload="the_number = pick_number()"> <!-- question on why pick_number is coming up as not defined? -->
-    <input type="text" id="guess_input" placeholder="Enter Number"><br>
-    <button type="button">Choose Wisely</button>
-    <div id="response_div"></div>
+<body class="gamestyle" onload="the_number = pick_number()"> <!-- question on why pick_number is coming up as not defined? -->
+    <div class="main-content">
+        <h1>GUESS A NUMBER BETWEEN 1 - 10</h1>
+        <div id="response_div">
+            <input type="text" id="guess_input" placeholder="Enter Number"><br>
+            <button type="button">Submit</button>
+        </div>
+    </div>
 </body>
 </html>
