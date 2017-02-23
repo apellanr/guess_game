@@ -29,6 +29,10 @@
             } else {
             }   $("#response_div").text("You guessed it!");
         }
+
+        function reset() {
+            document.getElementById("response_div").reset();
+        }
     </script>
 </head>
 <body class="gamestyle" onload="the_number = pick_number()"> <!-- question on why pick_number is coming up as not defined? -->
@@ -37,6 +41,7 @@
         <div id="response_div">
             <input type="text" id="guess_input" placeholder="Enter Number"><br>
             <button type="button">Submit</button>
+            <button type="button" onclick="reset()" value="Reset">Reset</button>
         </div>
     </div>
 </body>
