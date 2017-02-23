@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess The Number</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        var the_number = null;
+
+        function pick_number(){ //declared function
+            var random_number = Math.floor(Math.random() * 10) + 1; // inclusive at both min and max
+            return random_number;
+        }
+
+        $(document).ready(function(){ //click handler
+           $("button").click(function() { //click() method attaches a fxn to run when a click event occurs
+               return make_guess;
+        });
+
+        function make_guess(){ //declared function
+            var the_guess = $("#guess_input").val(); //val() will get value from user input field
+            if (the_guess > the_number){
+                $("responsive_div").text("Too High!");
+            } else if (the_guess < the_number){
+                $("responsive_div").text("Too Low!");
+            } else {
+            }   $("responsive_div").text("You guessed it!");
+        }
+
+    </script>
+</head>
+<body onload="the_number = pick_number()"> <!-- question on why pick_number is coming up as not defined? -->
+    <input type="text" id="guess_input" placeholder="Enter Number"><br>
+    <button type="button">Choose Wisely</button>
+    <div id="response_div"></div>
+</body>
+</html>
