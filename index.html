@@ -5,35 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-    <script>
-        var the_number = null;
-
-        function pick_number(){ //declared function
-            var random_number = Math.floor(Math.random() * 10) + 1; // inclusive at both min and max
-            return random_number;
-        }
-
-
-        $(document).ready(function(){ //click handler
-            $("button").click(function(){ //click() method attaches a fxn to run when a click event occurs
-                return make_guess();
-            });
-        });
-
-        function make_guess(){ //declared function
-            var the_guess = parseInt($("#guess_input").val(), 5); //val() will get value from user input field
-            if (the_guess > the_number){
-                $("#response_div").text("Too High!");
-            } else if (the_guess < the_number){
-                $("#response_div").text("Too Low!");
-            } else {
-            }   $("#response_div").text("You guessed it!");
-        }
-
-        function reset() {
-            document.getElementById("response_div").reset();
-        }
-    </script>
+    <script src="main.js"></script>
 </head>
 <body class="gamestyle" onload="the_number = pick_number()"> <!-- question on why pick_number is coming up as not defined? -->
     <div class="main-content">
