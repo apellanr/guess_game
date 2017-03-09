@@ -27,4 +27,5 @@ function make_guess(){ //declared function
 
 // function reset() {
 //     document.getElementById("response_div").reset();
+//     pick_number();
 // }

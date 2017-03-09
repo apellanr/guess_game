@@ -10,10 +10,11 @@
 <body class="gamestyle" onload="the_number = pick_number()"> <!-- question on why pick_number is coming up as not defined? -->
     <div class="main-content">
         <h1>GUESS A NUMBER BETWEEN 1 - 10</h1>
-        <div id="response_div">
+        <div id="container">
             <input type="text" id="guess_input" placeholder="Enter Number"><br>
             <button type="button">Submit</button>
-            <button type="button" onclick="reset()" value="Reset">Reset</button>
+            <!--<button type="button" onclick="reset()" value="Reset">Reset</button>-->
+            <div id="response_div" class="answer"></div>
         </div>
     </div>
 </body>

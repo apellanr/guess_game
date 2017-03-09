@@ -16,3 +16,6 @@ body {
     position: relative;
 }
 
+.answer {
+    font-size: 2em;
+}
