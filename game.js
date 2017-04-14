@@ -1,5 +1,7 @@
 $(document).ready(createNewGame);
 
+let game = null;
+
 function createNewGame() {
     game = new GuessGame();
     game.init();
@@ -10,38 +12,49 @@ function GuessGame() {
     this.guessArr = [];
     // **** GENERATE NUM **** //
     this.init = function() {
-        this.randomNum = this.randomizeNum();
+        this.generateRandom();
+        this.applyHandlers();
+    };
+    this.applyHandlers = function() {
         $("#submitBtn").click(this.makeGuess.bind(this));
+        $("#guessInput").keypress(this.validateKeypress);
+    };
+    this.validateKeypress = function() {
+        if(event.keyCode===13){
+            $("#submitBtn").click();
+        }
     };
     this.randomizeNum = function() {
-        return Math.floor(Math.random() * 20) + 1;
+        var number = Math.floor(Math.random() * 20) + 1;
+        // console.log(number);
+        return number;
     };
     // **** DISPLAY TO DOM **** //
     this.showResponse = function(result) {
         $("#responseDiv").text(result);
     };
     // **** RESET INPUT **** //
-    this.resetGame = function() {
+    this.generateRandom = function() {
         this.randomNum = this.randomizeNum();
-        $("#guessInput").val('');
     };
     // **** USER GUESS FUNCTION **** //
     this.makeGuess = function() {
-        this.guess = parseInt($("#guessInput").val());
+        var guess = parseInt($("#guessInput").val());
         // console.log(this);
-        this.guessArr.push(this.guess);
-        if(this.guess < 0 || this.guess > 20) {
+        this.guessArr.push(guess);
+        if(guess < 0 || guess > 20) {
             this.showResponse("Please enter proper input");
         }
-        else if (this.guess > this.randomNum) {
+        else if (guess > this.randomNum) {
             this.showResponse("Too High");
         }
-        else if (this.guess > this.randomNum) {
+        else if (guess < this.randomNum) {
             this.showResponse("Too Low");
         }
         else {
             this.showResponse("You guessed it");
+            this.generateRandom();
         }
-        this.resetGame();
+        $("#guessInput").val('');
     }
 }
