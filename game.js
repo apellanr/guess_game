@@ -26,7 +26,7 @@ function GuessGame() {
     };
     this.randomizeNum = function() {
         var number = Math.floor(Math.random() * 20) + 1;
-        // console.log(number);
+        console.log(number);
         return number;
     };
     // **** DISPLAY TO DOM **** //
@@ -40,9 +40,12 @@ function GuessGame() {
     // **** USER GUESS FUNCTION **** //
     this.makeGuess = function() {
         var guess = parseInt($("#guessInput").val());
-        // console.log(this);
+        // console.log(this); for testing purposes
         this.guessArr.push(guess);
-        if(guess < 0 || guess > 20) {
+        if(isNaN(guess)) {
+            this.showResponse('Invalid Input');
+        }
+        else if(guess < 0 || guess > 20) {
             this.showResponse("Please enter proper input");
         }
         else if (guess > this.randomNum) {
@@ -52,7 +55,7 @@ function GuessGame() {
             this.showResponse("Too Low");
         }
         else {
-            this.showResponse("You guessed it");
+            this.showResponse("You are correct! Game has now reset");
             this.generateRandom();
         }
         $("#guessInput").val('');
